@@ -165,15 +165,6 @@ namespace Andy.Utilities
             => decimal.Round(sender ?? 0, decimals, MidpointRounding.AwayFromZero);
 
         /// <summary>
-        /// Andy -> 傳回字串是否介於指定的字串區間
-        /// </summary>
-        public static bool Between(this string sender, string start, string end)
-        {
-            string expression = $"'{sender}'>='{start}' and '{sender}'<='{end}'";
-            return expression.ComputeA().ParseToBool();
-        }
-
-        /// <summary>
         /// Andy -> 傳回日期是否介於指定的日期區間
         /// </summary>
         public static bool Between(this DateTime sender, DateTime? start, DateTime? end)
@@ -263,19 +254,6 @@ namespace Andy.Utilities
         /// </summary>
         public static string ToMediaNumber(this int num, int totalWidth)
             => num >= 0 ? num.ToString($"D{totalWidth}") : "-" + (num * -1).ToString($"D{totalWidth - 1}");
-
-        /// <summary>
-        /// Andy -> int to string => 1.=> "000100", -1 => "-00100". 常用在媒體申報的數字轉文字(含小數點)
-        /// </summary>
-        public static string ToMediaNumber(this decimal num, int intWidth, int decimalWidth)
-        {
-            int integer = (int)Math.Truncate(num);
-            string intString = integer.ToMediaNumber(intWidth);
-            decimal deci = Math.Abs(num - integer);
-            var decitoint = deci * Math.Pow(10, decimalWidth).ParseToDecimal();
-            string decimamlString = decitoint.ParseToString().PadRightBytes(decimalWidth, '0');
-            return intString + decimamlString;
-        }
 
         public static string GetPrefixNumberString(this string text)
         {
@@ -393,12 +371,6 @@ namespace Andy.Utilities
         /// </summary>
         public static int RepeatCount(this string text, string search)
             => Regex.Matches(text, search).Count;
-
-        public static string ExceptInvalidChar(this string text)
-            => ExceptInvalidChar(text, Path.GetInvalidFileNameChars()).Replace("$", "");
-
-        public static string ExceptInvalidChar(this string text, params char[] exceptchars)
-            => text.AsEnumerable().Except(exceptchars).JoinWith("");
 
         /// <summary>
         /// Andy -> string.IsNullOrWhiteSpace(text)
