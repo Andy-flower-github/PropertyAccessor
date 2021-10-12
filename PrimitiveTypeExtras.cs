@@ -123,18 +123,6 @@ namespace Andy.Utilities
         }
 
         /// <summary>
-        /// Andy -> "5.1MM * 6.1MM" => "5.1*6.1"
-        /// </summary>
-        public static string GetDigitString(this string sender)
-        {
-            string regex = @"[\d+\-*/.,]";
-            return Regex.Matches(sender, regex).Cast<Match>().Select(x => x.Value).JoinWith("");
-        }
-
-        public static string Replicate(this string sender, int times)
-            => Enumerable.Range(1, times).Select(x => sender).JoinWith("");
-
-        /// <summary>
         /// Andy ->  "1+2" = 3, "3*2+1" = 7 , 失敗回傳  0, 'aa'>='bb' = FALSE
         /// </summary>
         public static object ComputeA(this string sender)
